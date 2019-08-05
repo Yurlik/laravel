@@ -27,6 +27,7 @@ class TodoCreateRequest extends FormRequest
             //
             'title' => 'required|min:3',
             'description' => 'required|unique:posts|max:255',
+
         ];
     }
 }

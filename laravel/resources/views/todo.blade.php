@@ -13,9 +13,9 @@
                 <div class="todos_body">
 <?php
 
-//echo '<hr>';
-//echo count($todos);
-//echo '<hr>';
+//echo '<hr><pre>';
+//echo print_r($categorys);
+//echo '</pre><hr>';
 
 ?>
                     <h2>To Do List</h2>

@@ -11,7 +11,8 @@ class Todo extends Model
 
         'title',
         'description',
-        'owner_id'
+        'owner_id',
+        'cat_id'
 
     ];
 }

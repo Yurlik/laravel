@@ -5,6 +5,12 @@
     @foreach($todos as $task)
 
         <article class="task">
+            @foreach($categorys as $cat)
+                @if($cat->id == $task->cat_id)
+                    <a class="block" data-category="{{$task->cat_id}}" href="/todo/cat/{{$task->cat_id}}">Category: {{ $cat->name }}</a>
+                @endif
+            @endforeach
+
             <a href="{{ action('TodoController@show', [$task->id]) }}">{{$task->title}}</a>
 
 

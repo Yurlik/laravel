@@ -7,6 +7,7 @@ use App\Http\Requests\TodoCreateRequest;
 use App\Todo;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 //use Illuminate\Http\Request;
 use Request;
 
@@ -21,9 +22,11 @@ class TodoController extends Controller
 
         $todos = Todo::latest('created_at')->where('owner_id', '=', $id )->limit(5)->get();
 
+        $categorys = DB::table('todos_category')->where('owner_id', '=', $id )->get();
+
         $quant = 5;
 
-        return view('todo_in', array('user' => Auth::user(), 'todos' => $todos, 'quant' => $quant, 'request' => $request ));
+        return view('todo_in', array('user' => Auth::user(), 'todos' => $todos, 'quant' => $quant, 'request' => $request, 'categorys' =>$categorys ));
     }
 
     // show single todo_task
@@ -41,7 +44,7 @@ class TodoController extends Controller
         }
 
 
-        $todos = Todo::latest()->get();
+        //$todos = Todo::latest()->get();
 
         //   return view('todo', array('user' => Auth::user(), 'todos' => $todos ));
         return redirect('todo');
@@ -73,7 +76,7 @@ class TodoController extends Controller
 
         $todos = Todo::latest()->get();
 
-        $quant = 5;
+        $quant = '';
 
         return view('todo_in', array('user' => Auth::user(), 'todos' => $todos, 'quant' => $quant ));
     }
@@ -82,15 +85,53 @@ class TodoController extends Controller
 
         $id = Auth::user()->id;
 
-        $todos = Todo::latest('created_at')->where('owner_id', '=', $id )->offset($from)->limit(5)->get();
+            $todos = Todo::latest('created_at')->where('owner_id', '=', $id )->offset($from)->limit(5)->get();
+        //
 
-        $quant = 5;
+        $quant = '5';
 
-        return view('todo_in_in', array('user' => Auth::user(), 'todos' => $todos, 'quant' => $quant, 'request' => $request));
+        $categorys = DB::table('todos_category')->where('owner_id', '=', $id )->get();
+
+        return view('todo_in_in', array('user' => Auth::user(), 'todos' => $todos, 'quant' => $quant, 'request' => $request, 'categorys' =>$categorys));
 
     }
 
+    public function load_data_cat(Request $request, $from, $cat_id){
+
+        $id = Auth::user()->id;
+        if($cat_id){
+            $todos = Todo::latest('created_at')->where([
+                ['owner_id', '=', $id],
+                ['cat_id', '=', $cat_id],
+            ] )->offset($from)->limit(5)->get();
+        }else{
+            $todos = Todo::latest('created_at')->where('owner_id', '=', $id )->offset($from)->limit(5)->get();
+        }
+//
 
 
+        $quant = '5';
+
+        $categorys = DB::table('todos_category')->where('owner_id', '=', $id )->get();
+
+        return view('todo_in_in', array('user' => Auth::user(), 'todos' => $todos, 'quant' => $quant, 'request' => $request, 'categorys' =>$categorys));
+
+    }
+
+    public function todo_cat($cat_id){
+
+        $id = Auth::user()->id;
+
+        $categorys = DB::table('todos_category')->where('owner_id', '=', $id )->get();
+
+        $todos = Todo::latest('created_at')->where([
+            ['owner_id', '=', $id],
+            ['cat_id', '=', $cat_id],
+            ] )->limit(5)->get();
+
+        $quant = '5';
+
+        return view('todo_in', array('user' => Auth::user(), 'todos' => $todos, 'quant' => $quant, 'categorys' =>$categorys ));
+    }
 
 }
