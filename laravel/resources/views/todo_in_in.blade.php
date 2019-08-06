@@ -10,7 +10,7 @@
                 @endif
             @endforeach
             {{--<h5>Category: {{ $task->cat_id }}</h5>--}}
-            <a href="{{ action('TodoController@show', [$task->id]) }}">{{$task->title}}</a>
+            <b href="{{ action('TodoController@show', [$task->id]) }}">{{$task->title}}</b>
 
 
             {!! Form::model($task, ['method' => 'DELETE', 'action' => ['TodoController@destroy', $task->id], 'class'=>'del_btn']) !!}

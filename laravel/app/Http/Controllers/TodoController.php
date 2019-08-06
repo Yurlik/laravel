@@ -23,10 +23,15 @@ class TodoController extends Controller
         $todos = Todo::latest('created_at')->where('owner_id', '=', $id )->limit(5)->get();
 
         $categorys = DB::table('todos_category')->where('owner_id', '=', $id )->get();
+        $for_select = [];
+
+        foreach ($categorys as $category) {
+            $for_select[$category->id] = $category->name;
+        }
 
         $quant = 5;
 
-        return view('todo_in', array('user' => Auth::user(), 'todos' => $todos, 'quant' => $quant, 'request' => $request, 'categorys' =>$categorys ));
+        return view('todo_in', array('user' => Auth::user(), 'todos' => $todos, 'quant' => $quant, 'request' => $request, 'categorys' =>$categorys, 'for_select' => $for_select ));
     }
 
     // show single todo_task
@@ -78,7 +83,13 @@ class TodoController extends Controller
 
         $quant = '';
 
-        return view('todo_in', array('user' => Auth::user(), 'todos' => $todos, 'quant' => $quant ));
+        $categorys = DB::table('todos_category')->where('owner_id', '=', $id )->get();
+
+        foreach ($categorys as $category) {
+            $for_select[$category->id] = $category->name;
+        }
+
+        return view('todo_in', array('user' => Auth::user(), 'todos' => $todos, 'quant' => $quant, 'for_select' => $for_select ));
     }
 
     public function load_data(Request $request, $from){
@@ -92,7 +103,11 @@ class TodoController extends Controller
 
         $categorys = DB::table('todos_category')->where('owner_id', '=', $id )->get();
 
-        return view('todo_in_in', array('user' => Auth::user(), 'todos' => $todos, 'quant' => $quant, 'request' => $request, 'categorys' =>$categorys));
+        foreach ($categorys as $category) {
+            $for_select[$category->id] = $category->name;
+        }
+
+        return view('todo_in_in', array('user' => Auth::user(), 'todos' => $todos, 'quant' => $quant, 'request' => $request, 'categorys' =>$categorys, 'for_select' => $for_select));
 
     }
 
@@ -114,7 +129,11 @@ class TodoController extends Controller
 
         $categorys = DB::table('todos_category')->where('owner_id', '=', $id )->get();
 
-        return view('todo_in_in', array('user' => Auth::user(), 'todos' => $todos, 'quant' => $quant, 'request' => $request, 'categorys' =>$categorys));
+        foreach ($categorys as $category) {
+            $for_select[$category->id] = $category->name;
+        }
+
+        return view('todo_in_in', array('user' => Auth::user(), 'todos' => $todos, 'quant' => $quant, 'request' => $request, 'categorys' =>$categorys, 'for_select' => $for_select));
 
     }
 
@@ -131,7 +150,11 @@ class TodoController extends Controller
 
         $quant = '5';
 
-        return view('todo_in', array('user' => Auth::user(), 'todos' => $todos, 'quant' => $quant, 'categorys' =>$categorys ));
+        foreach ($categorys as $category) {
+            $for_select[$category->id] = $category->name;
+        }
+
+        return view('todo_in', array('user' => Auth::user(), 'todos' => $todos, 'quant' => $quant, 'categorys' =>$categorys, 'for_select' => $for_select ));
     }
 
 }

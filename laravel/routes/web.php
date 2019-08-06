@@ -27,7 +27,7 @@ Route::post('profile', 'UserController@update_avatar');
 //Route::put('todo/{id}', 'TodoController@edit');
 //Route::patch('todo/{id}', 'TodoController@update');
 Route::resource('todo', 'TodoController');
-
+Route::resource('cat', 'CategoryController');
 
 
 Route::post('todo/load_data/{from}', 'TodoController@load_data');

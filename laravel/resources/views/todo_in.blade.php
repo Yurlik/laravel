@@ -1,13 +1,20 @@
 @extends('todo')
 
 @section('task_content')
-
+    <h4>Your categorys</h4>
+    <ul class="categorys_wrapper">
+        <?php //dump($categorys); ?>
+        @foreach($categorys as $category)
+            <a class="block" href="/todo/cat/{{$category->id}}"><li> {{ $category->name }} </li></a>
+        @endforeach
+    </ul>
+    <hr>
     @foreach($todos as $task)
 
         <article class="task">
             @foreach($categorys as $cat)
                 @if($cat->id == $task->cat_id)
-                    <a class="block" data-category="{{$task->cat_id}}" href="/todo/cat/{{$task->cat_id}}">Category: {{ $cat->name }}</a>
+                    <b class="block" data-category="{{$task->cat_id}}" href="/todo/cat/{{$task->cat_id}}">Category: {{ $cat->name }}</b>
                 @endif
             @endforeach
 

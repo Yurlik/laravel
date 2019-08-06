@@ -69,6 +69,8 @@
 
                                     <a class="dropdown-item" href="{{url('/profile')}}"><i class="fa fa-btn fa-user"></i>Profile</a>
                                     <a class="dropdown-item" href="{{url('/todo')}}"><i class="fa fa-btn "></i>To Do List</a>
+                                    <a class="dropdown-item" href="{{url('/cat')}}"><i class="fa fa-btn "></i>To Do Categorys</a>
+                                    <a class="dropdown-item" href="{{url('/cat/create')}}"><i class="fa fa-btn "></i>Add Category</a>
 
 
                                 </div>

@@ -16,7 +16,7 @@ class CreateTodosCategoryTable extends Migration
         Schema::create('todos_category', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->string('owner_id');
+            $table->string('owner_id')->nullable();
             $table->string('parent_cat_id')->nullable();
             $table->timestamps();
         });

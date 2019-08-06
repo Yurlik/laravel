@@ -23,4 +23,12 @@ a.edit_btn {
 
 .block{
     display: block;
+    width: 100%;
+}
+
+.cat_wrap{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
 }

@@ -49,9 +49,16 @@
 
                 <div class="create_task_block">
 
-                    {!! Form::open() !!}
+                    {!! Form::open(['url' => 'todo']) !!}
                         <div class="form-group form_name">
                             <h4>Create task</h4>
+                        </div>
+                    <?php
+//                    dump($categorys);
+                    ?>
+                        <div class="form-group">
+                            {!! Form::label('cat_id', 'Category:') !!}
+                            {!! Form::select('cat_id', $for_select) !!}
                         </div>
                         <div class="form-group">
                             {!! Form::label('title', 'Title:') !!}
