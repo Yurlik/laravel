@@ -88,7 +88,13 @@ class CategoryController extends Controller
     public function edit($id)
     {
         //
-        return 'edit category';
+        $owner_id = Auth::user()->id;
+        $cat = DB::table('todos_category')->where([
+            ['owner_id', '=', $owner_id],
+            ['id', '=', $id],
+        ] )->get();
+
+        return view('todo_in_cat_edit', array('user' => Auth::user(), 'cat' => $cat ));
     }
 
     /**
@@ -101,7 +107,19 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         //
-        return 'update category';
+        $owner_id = Auth::user()->id;
+
+
+        $ver = Request::all();
+
+        $cat = DB::table('todos_category')->where([
+            ['owner_id', '=', $owner_id],
+            ['id', '=', $id],
+        ] )->update(['name' => $ver['name']]);
+
+
+        return redirect('cat');
+
     }
 
     /**
@@ -112,19 +130,8 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-
         $del = DB::delete('delete from todos_category where id = ?',[$id]);
 
-        $owner_id = Auth::user()->id;
-
-        $categorys = DB::table('todos_category')->where([
-            ['owner_id', '=', $owner_id],
-            ['id', '=', $id],
-        ] )->get();
-
-
-
-//        return view('todo_in_cat', array('user' => Auth::user(), 'categorys' => $categorys));
         return redirect('cat');
     }
 }
